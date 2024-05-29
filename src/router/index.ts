@@ -7,8 +7,10 @@ const router = createRouter({
       path: '/',
       name: 'traffic-lights',
       component: () => import('@/pages/TrafficLights.vue')
-    },
+    }
   ]
 })
+
+// There is only one route?
 
 export default router

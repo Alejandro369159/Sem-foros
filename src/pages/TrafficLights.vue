@@ -13,7 +13,7 @@ const verticalFlow = ref<{ goTime: number; isMoving: boolean }>({
   isMoving: true
 })
 
-const numberOfCars = reactive({
+const numberOfVehicles = reactive({
   left: getRandomNumber(),
   up: getRandomNumber(),
   right: getRandomNumber(),
@@ -23,19 +23,19 @@ const numberOfCars = reactive({
 function horizontalCycle() {
   let horizontalN: number = 0
   horizontalN =
-    numberOfCars.left === numberOfCars.right || numberOfCars.left > numberOfCars.right
-      ? numberOfCars.left
-      : numberOfCars.right
+    numberOfVehicles.left === numberOfVehicles.right || numberOfVehicles.left > numberOfVehicles.right
+      ? numberOfVehicles.left
+      : numberOfVehicles.right
   horizontalFlow.value.goTime = horizontalN * 0.85
   horizontalFlow.value.isMoving = true
   setTimeout(() => {
     horizontalFlow.value.isMoving = false
-    numberOfCars.left = 0
-    numberOfCars.right = 0
+    numberOfVehicles.left = 0
+    numberOfVehicles.right = 0
     horizontalFlow.value.goTime = 0
     // Seeder
-    numberOfCars.up = getRandomNumber()
-    numberOfCars.down = getRandomNumber()
+    numberOfVehicles.up = getRandomNumber()
+    numberOfVehicles.down = getRandomNumber()
     // Infinite loop
     verticalCycle()
   }, horizontalFlow.value.goTime * 1000)
@@ -44,19 +44,19 @@ function horizontalCycle() {
 function verticalCycle() {
   let verticalN: number = 0
   verticalN =
-    numberOfCars.up === numberOfCars.down || numberOfCars.up > numberOfCars.down
-      ? numberOfCars.up
-      : numberOfCars.down
+    numberOfVehicles.up === numberOfVehicles.down || numberOfVehicles.up > numberOfVehicles.down
+      ? numberOfVehicles.up
+      : numberOfVehicles.down
   verticalFlow.value.goTime = verticalN * 0.85
   verticalFlow.value.isMoving = true
   setTimeout(() => {
     verticalFlow.value.isMoving = false
-    numberOfCars.up = 0
-    numberOfCars.down = 0
+    numberOfVehicles.up = 0
+    numberOfVehicles.down = 0
     verticalFlow.value.goTime = 0
     // Seeder
-    numberOfCars.left = getRandomNumber()
-    numberOfCars.right = getRandomNumber()
+    numberOfVehicles.left = getRandomNumber()
+    numberOfVehicles.right = getRandomNumber()
     // Infinite loop
     horizontalCycle()
   }, verticalFlow.value.goTime * 1000)
@@ -82,14 +82,14 @@ onMounted(() => {
         class="absolute flex flex-col left-[52%] transition-all duration-[6000ms]"
       >
         <!-- up -->
-        <Car v-for="car in numberOfCars.up" class="-rotate-90" />
+        <Car v-for="car in numberOfVehicles.up" class="-rotate-90" />
       </div>
       <div
         :class="{ 'right-3/4': verticalFlow.isMoving, 'right-[-600px]': !verticalFlow.isMoving }"
         class="absolute flex top-[52%] transition-all duration-[6000ms]"
       >
         <!-- right -->
-        <Car v-for="car in numberOfCars.right" />
+        <Car v-for="car in numberOfVehicles.right" />
       </div>
       <div
         :class="{
@@ -99,29 +99,29 @@ onMounted(() => {
         class="absolute flex-col flex right-[52%] transition-all duration-[6000ms]"
       >
         <!-- down -->
-        <Car v-for="car in numberOfCars.down" class="rotate-90" />
+        <Car v-for="car in numberOfVehicles.down" class="rotate-90" />
       </div>
       <div
         :class="{ 'left-3/4': verticalFlow.isMoving, 'left-[-600px]': !verticalFlow.isMoving }"
         class="absolute flex bottom-[52%] transition-all duration-[6000ms]"
       >
         <!-- left -->
-        <Car v-for="car in numberOfCars.left" class="flip-car" />
+        <Car v-for="car in numberOfVehicles.left" class="flip-car" />
       </div>
     </div>
   </main>
   <div class="mx-auto w-fit">
     <p class="font-semibold text-2xl">
-      UP: {{ numberOfCars.up }} cars | {{ verticalFlow.goTime }}s
+      UP: {{ numberOfVehicles.up }} cars | {{ verticalFlow.goTime }}s
     </p>
     <p class="font-semibold text-2xl">
-      RIGHT: {{ numberOfCars.right }} cars | {{ horizontalFlow.goTime }}s
+      RIGHT: {{ numberOfVehicles.right }} cars | {{ horizontalFlow.goTime }}s
     </p>
     <p class="font-semibold text-2xl">
-      DOWN: {{ numberOfCars.down }} cars | {{ verticalFlow.goTime }}s
+      DOWN: {{ numberOfVehicles.down }} cars | {{ verticalFlow.goTime }}s
     </p>
     <p class="font-semibold text-2xl">
-      LEFT: {{ numberOfCars.left }} cars | {{ horizontalFlow.goTime }}s
+      LEFT: {{ numberOfVehicles.left }} cars | {{ horizontalFlow.goTime }}s
     </p>
   </div>
 </template>
